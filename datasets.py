@@ -1,6 +1,6 @@
-from urllib.request import urlopen
-from ssl import SSLContext, PROTOCOL_TLSv1
-import numpy as np
+# from urllib.request import urlopen
+# from ssl import SSLContext, PROTOCOL_TLSv1
+# import numpy as np
 import cv2
 
 # Для определения объекта в видео потоке используя каскад Хаара

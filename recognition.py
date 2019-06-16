@@ -1,7 +1,7 @@
 import cv2
-import numpy as np
-from ssl import SSLContext, PROTOCOL_TLSv1
-from urllib.request import urlopen
+# import numpy as np
+# from ssl import SSLContext, PROTOCOL_TLSv1
+# from urllib.request import urlopen
 
 # Создаем локальный паттерн для распознавания лица
 recognizer = cv2.cv2.face.LBPHFaceRecognizer_create()
@@ -43,11 +43,13 @@ while True:
         Id, conf = recognizer.predict(gray[y:y + h, x:x + w])
 
         # Если ID существует
-        if (Id == 3):
-            Id = "Man"
+        if (Id == 1):
+            Id = "Mikhail"
         # # Убрать коммент, в случае если распознаются другие лица и заменить ID из датасета
-        elif (Id == 1):
+        elif (Id == 2):
             Id = "Mikhail"  # Имя другой персоны
+        elif (Id == 2):
+            Id = ""
         else:
             Id = "Uknown"
 
