@@ -16,16 +16,17 @@ faceCascade = cv2.CascadeClassifier(cascadePath);
 # Выставляет стиль текста
 font = cv2.FONT_HERSHEY_SIMPLEX
 
-# Ip of the IP webcam server (on phone). The phone and your computer must be in the same LAN (connected to the same WiFi)
-url = 'https://raw.githubusercontent.com/Sach97/Face-Recognition-Ip-Camera/master/dataset/User.3.34.jpg'
+cam = cv2.VideoCapture(0)
 
 while True:
     # Получаем фрейм видео из потока
-    gcontext = SSLContext(PROTOCOL_TLSv1)
-    info = urlopen(url, context=gcontext).read()
+    # gcontext = SSLContext(PROTOCOL_TLSv1)
+    # info = urlopen(url, context=gcontext).read()
 
-    imgNp = np.array(bytearray(info), dtype=np.uint8)
-    im = cv2.imdecode(imgNp, -1)
+    ret, im = cam.read()
+
+    # imgNp = np.array(bytearray(info), dtype=np.uint8)
+    # im = cv2.imdecode(imgNp, -1)
 
     # Переводим фрейм в грейскейл
     gray = cv2.cvtColor(im, cv2.COLOR_BGR2GRAY)
@@ -43,12 +44,12 @@ while True:
 
         # Если ID существует
         if (Id == 3):
-            Id = "Мишаня"
+            Id = "Man"
         # # Убрать коммент, в случае если распознаются другие лица и заменить ID из датасета
-        # elif(Id == 1):
-        #     Id = "Настя" # Имя другой персоны
-        # else:
-        #     Id = "Неизвестно"
+        elif (Id == 1):
+            Id = "Mikhail"  # Имя другой персоны
+        else:
+            Id = "Uknown"
 
         # Добавить описание "кто это" на картинку
         cv2.rectangle(im, (x - 22, y - 90), (x + w + 22, y - 22), (0, 255, 0), -1)

@@ -12,27 +12,27 @@ face_id = 1
 # Счетчик изображений лиц
 count = 0
 
-# Ip of the IP webcam server (on phone). The phone and your computer must be in the same LAN (connected to the same WiFi)
-url = 'https://raw.githubusercontent.com/Sach97/Face-Recognition-Ip-Camera/master/dataset/User.3.34.jpg'
+cam = cv2.VideoCapture(0)
 
 while (True):
 
-    # Получение видеофрейма
-    gcontext = SSLContext(PROTOCOL_TLSv1)
-    info = urlopen(url, context=gcontext).read()
+    ret, im = cam.read()
 
-    imgNp = np.array(bytearray(info), dtype=np.uint8)
-    image_frame = cv2.imdecode(imgNp, -1)
+    # Получение видеофрейма
+    # info = urlopen(url, context=gcontext).read()
+
+    # imgNp = np.array(bytearray(im), dtype=np.uint8)
+    # image_frame = cv2.imdecode(imgNp, -1)
 
     # Конвертация в грейскейл
-    gray = cv2.cvtColor(image_frame, cv2.COLOR_BGR2GRAY)
+    gray = cv2.cvtColor(im, cv2.COLOR_BGR2GRAY)
 
     # Определяем фреймы разных размеров
     faces = face_detector.detectMultiScale(gray, 1.3, 5)
 
     for (x, y, w, h) in faces:
         # Подстановка изображения в прямоугольник
-        cv2.rectangle(image_frame, (x, y), (x + w, y + h), (255, 0, 0), 2)
+        cv2.rectangle(im, (x, y), (x + w, y + h), (255, 0, 0), 2)
 
         count += 1
 
@@ -42,7 +42,7 @@ while (True):
         print(count)
 
         # Отобразить прямоугольник вокруг лица
-        cv2.imshow('frame', image_frame)
+        cv2.imshow('frame', im)
 
     k = cv2.waitKey(33)
     if k == 27:  # Esc для остановки
